@@ -1,0 +1,181 @@
+{
+  "main": {
+    "id": "6a48fe1b71f7a262",
+    "type": "split",
+    "children": [
+      {
+        "id": "ae0ec0f6b509a9c5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "20ce4a95112927ab",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux系统知识/Linux终端、终端模拟器.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "87f41b7537f0d3f9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "linux系统知识/gdb调试器.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "51462aef13ffbd8e",
+    "type": "split",
+    "children": [
+      {
+        "id": "660798a768186090",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "894ac6d9ee0c0ee0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "41778f0d05acec23",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "4bd79fb4cc7920ee",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f224e2d9413c3a05",
+    "type": "split",
+    "children": [
+      {
+        "id": "5f0a78ba3e2906bc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2f99632161463d05",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "linux系统知识/Linux终端、终端模拟器.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "93381b9719b168fe",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "linux系统知识/Linux终端、终端模拟器.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a3de009b140b9735",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": false
+              }
+            }
+          },
+          {
+            "id": "3483b61b056edb8c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "linux系统知识/Linux终端、终端模拟器.md"
+              }
+            }
+          },
+          {
+            "id": "9949068b13c5e168",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
+    }
+  },
+  "active": "894ac6d9ee0c0ee0",
+  "lastOpenFiles": [
+    "linux系统知识/Linux终端、终端模拟器.md",
+    "linux系统知识/gdb调试器.md",
+    "Obsidian/Obsidian文件同步.md",
+    "Obsidian/Obsidian使用基础.md",
+    "Android系统知识/Android系统架构.md",
+    "遗失的课程/元编程.md",
+    "遗失的课程/Untitled.md"
+  ]
+}

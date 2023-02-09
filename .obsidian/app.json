@@ -1,0 +1,14 @@
+{
+  "showLineNumber": true,
+  "attachmentFolderPath": "attchment",
+  "newFileLocation": "current",
+  "strictLineBreaks": true,
+  "spellcheck": false,
+  "vimMode": true,
+  "tabSize": 4,
+  "spellcheckLanguages": [
+    "zh-CN",
+    "en-US"
+  ],
+  "readableLineLength": true
+}
