@@ -4,6 +4,9 @@
 * 类Unix系统中的Xterm\ gnome-terminal等
 * Windows中的控制台
 
+最新了解：
+我们常说的终端分为**终端 tty1-6 和伪终端。** 使用 tty1-6 的情况一般为 Linux 系统直接连了键盘和显示器，或者是使用了 vSphere console 等虚拟化方案，**其它情况下使用的都是伪终端。**
+
 ## 回顾历史
 **Teleprinter**或**teletypewriter** 作为输入输出设备连接到早期的大型计算机上。
 TTY代表计算机终端，电传打字机**teletypewriter** 曾经是计算机的终端。
@@ -18,10 +21,24 @@ TTY代表计算机终端，电传打字机**teletypewriter** 曾经是计算机�
 终端模拟器就像过去的物理终端一样，它监听来自键盘的事件将其发送到 TTY 驱动，并从 TTY 驱动读取响应，通过显卡驱动将结果渲染到显示器上。TTY 驱动 和 **line discipline** 的行为与原先一样，但不再有 UART 和 物理终端参与。
 
 ## 伪终端(pseudo terminal, PTY)
+
+伪终端的两种应用场景：
+1. 图形界面下打开的命令行接口，我们经常使用Ctrl+Alt+T打开的那个实际上就是一个 伪终端。
+2. 基于ssh协议或telnet协议等远程打开的命令行界面，是运维工程师用的最多的一种连接服务器的方式。
+3. 多路复用器应用,如 screen 和 tmux。它们把输入和输出从一个终端转播到另一个终端，使文本模式的应用程序从实际的终端上脱离
+
+
 **终端模拟器(terminal emulator)** 是运行在内核的模块，我们也可以让终端模拟程序运行在用户区。运行在用户区的终端模拟程序，就被称为**伪终端（pseudo terminal, PTY）**。
 
 PTY 运行在用户区，更加安全和灵活，同时仍然保留了 TTY 驱动和 **line discipline** 的功能。常用的伪终端有 xterm，gnome-terminal，以及远程终端 ssh。
 ![[Pasted image 20230209213935.png]]
+
+```
+伪终端(pseudo terminal，有时也被称为 pty)是指伪终端 master 和伪终端 slave 这一对字符设备。其中的 slave 对应 /dev/pts/ 目录下的一个文件，而 master 则在内存中标识为一个文件描述符(fd)。
+
+Master 端是更接近用户显示器、键盘的一端，slave 端是在虚拟终端上运行的 CLI(Command Line Interface，命令行接口)程序。
+伪终端由终端模拟器提供，终端模拟器是一个运行在用户态的应用程序。
+```
 
 gnome-terminal 持有 `PTY master` 的文件描述符 `/dev/ptmx`。gnome-terminal 负责监听键盘事件，通过`PTY master`接收或发送字符到 `PTY slave`，还会在屏幕上绘制来自`PTY master`的字符输出。
   
