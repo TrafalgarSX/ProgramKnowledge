@@ -16,3 +16,29 @@ detach vdisk
 exit
 ```
 这样C盘的空间就会回来。👌
+
+### WSL移除PATH中Windows共享的位置
+在wsl中 `echo $PATH`会看到大量`/mnt/c`开头的位置,这些都是从Windows系统的`PATH`变量中合并过来的,这样就容易出现在WSL中如果有和Windows中相同名称的命令,可能会出现调用紊乱,下面记录一下如何让WSL保持自己`PATH`变量的纯洁性
+
+运行命令 `vim /etc/wsl.conf`
+```
+# 不加载Windows中的PATH内容
+[interop]
+appendWindowsPath = false
+
+# 不自动挂载Windows系统所有磁盘分区
+[automount]
+enabled = false
+```
+保存退出后关闭WSL,再重新运行WSL 
+
+如果没有起效，从windows命令行终止linux子系统，重新打开后即可：
+```
+wsl --list
+# 适用于 Linux 的 Windows 子系统:
+# Ubuntu-18.04 (默认)
+wsl --terminate Ubuntu-18.04
+```
+
+#### 配置wsl官方参考文档
+[Automatically Configuring WSL - Windows Command Line](https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/)
