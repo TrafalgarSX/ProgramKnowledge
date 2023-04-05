@@ -20,7 +20,6 @@
 信号列表: `<signal.h>` 中有定义。
 
 ### POSIX（Portable Operating System Interface）
-
 POSIX defines both the system and user-level application programming interfaces (APIs), along with command line shells and utility interfaces, for software compatibility (portability) with variants of Unix and other operating systems.
 
 glibc 为程序员提供丰富的 API（Application Programming Interface），这些API都是遵循POSIX标准的，API的函数名，返回值，参数类型等都必须按照POSIX标准来定义。
