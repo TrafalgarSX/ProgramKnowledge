@@ -23,4 +23,4 @@ hint: invocation.
 Already up to date.
 
 ```
-* `git config pull.rebase false`   #默认策略
+* `git config pull.rebase false #默认策略`   

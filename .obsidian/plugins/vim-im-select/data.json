@@ -1,8 +1,0 @@
-{
-  "defaultIM": "",
-  "obtainCmd": "",
-  "switchCmd": "",
-  "windowsDefaultIM": "1033",
-  "windowsObtainCmd": "im-select",
-  "windowsSwitchCmd": "im-select {im}"
-}
