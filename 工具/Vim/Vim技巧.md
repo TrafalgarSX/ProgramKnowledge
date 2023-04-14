@@ -39,4 +39,25 @@ p 往光标后复制  P往光标前复制
 
 ```
 
+### vim如何查看完整的runtimepath
 
+如果 `set runtimepath` 命令没有输出完整的 runtimepath，你可以使用以下命令来查看完整的 runtimepath：
+
+```
+:echo split(&runtimepath, ',')
+```
+
+这个命令会将 runtimepath 按逗号分隔成一个列表，并打印出来。你可以使用 `:echo` 命令来显示这个列表。
+
+另外，如果你想要查看某个特定的目录是否包含在 runtimepath 中，可以使用以下命令：
+
+```
+:echo index(split(&runtimepath, ','), '/path/to/directory')
+```
+
+这个命令将返回目录 `/path/to/directory` 在 runtimepath 中的位置。如果目录不在 runtimepath 中，将返回 `-1`。
+
+### 自定义coc-settings.json路径
+```viml
+let g:coc_config_home = '~/.vim/vim/'
+```

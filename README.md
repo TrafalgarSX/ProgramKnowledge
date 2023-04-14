@@ -1,2 +1,2 @@
 # ProgramKnowledge
-Obsidian\Program Knowledge
+Obsidian/Program Knowledge

@@ -717,9 +717,7 @@ reddit              https://www.reddit.com/r/vim/
 - 某些情况下 Vim 绘制高亮慢，滚屏刷新慢可以试试 set re=1 使用老的正则引擎
 - Windows 下的 GVim 可以设置 set rop=type:directx,renmode:5 增强显示
 
-
 ### References
-
 https://github.com/groenewege/vimrc/blob/master/vim_cheat_sheet.txt
 http://blog.g-design.net/post/4789778607/vim-cheat-sheet
 http://www.keyxl.com/aaa8263/290/VIM-keyboard-shortcuts.htm
@@ -736,3 +734,36 @@ https://github.com/glts/vim-cottidie/blob/master/autoload/cottidie/tips
 
 ### vim: set ts=4 sw=4 tw=0 noet noautoindent fdm=manual :
 
+```
+silent! call which_key#register('<space>', "g:space_key_map")
+nnoremap <silent> <space><space> :<C-u>WhichKey '<space>'<CR>
+vnoremap <silent> <space><space> :<C-u>WhichKeyVisual '<space>'<CR>
+
+let g:space_key_map = {}
+
+let g:space_key_map.c = {
+	  \ 'name': '+buf/gtags',
+	  \ 'w': 'CdToFileDir',
+	  \ 'r': 'CdToProjectRoot',
+	  \ 's': 'Scope symbol',
+	  \ 'g': 'Scope definition',
+	  \ 'c': 'Scope functions calling',
+	  \ 'd': 'Scope functions calling by',
+	  \ 't': 'Scope string',
+	  \ 'e': 'Scope egrep',
+	  \ 'a': 'Scope assigned',
+	  \ 'f': 'Scope file',
+	  \ 'i': 'Scope files including',
+      \ 'b' : {
+        \ 'name': '+update_tags',
+        \ '1' : 'ctags .tags',
+        \ '2' : 'cs .cscope',
+        \ '3' : '! ctags',
+        \ '4' : '! cs',
+        \ '5' : 'py .cscopy',
+        \ '6' : 'py .cscopy',
+        \ }
+	  \ }
+
+帮我分析一下为什么当我显示which-key的时候，  <space>-c 还是prefix, 不显示+buf/gtags
+```

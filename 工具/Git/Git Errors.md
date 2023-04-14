@@ -24,3 +24,15 @@ Already up to date.
 
 ```
 * `git config pull.rebase false #默认策略`   
+
+### git clone比较大的仓库（150MB）会出现
+```
+fetch-pack: unexpected disconnect while reading sideband packet
+fatal: early EOF
+fatal: fetch-pack: invalid index-pack output
+
+解决方法：
+缓存太小， 增大缓存：
+git config --global http.postBuffer 524288000
+```
+
