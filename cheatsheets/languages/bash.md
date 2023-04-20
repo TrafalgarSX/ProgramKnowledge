@@ -1,6 +1,6 @@
 ## BASH CHEATSHEET (中文速查表)  -  by skywind (created on 2018/02/14)
-### Version: 47, Last Modified: 2019/09/24 17:58
-### https://github.com/skywind3000/awesome-cheatsheets
+Version: 47, Last Modified: 2019/09/24 17:58
+https://github.com/skywind3000/awesome-cheatsheets
 
 ### 常用快捷键（默认使用 Emacs 键位）
 ```
@@ -102,6 +102,8 @@ dirname {fn}        # 查看文件的路径（不包括名字）
 grep {pat} {fn}     # 在文件中查找出现过 pat 的内容
 grep -r {pat} .     # 在当前目录下递归查找所有出现过 pat 的文件内容
 stat {fn}           # 显示文件的详细信息
+
+cat text | grep -niw  "error\|warning\|successed"  -A3 --color=auto # 将文件中的匹配的文本彩色输出
 ```
 
 ### 用户管理
@@ -236,12 +238,15 @@ rz                        # 接收终端发送过来的文件
 
 ### 变量操作
 ```
-varname=value             # 定义变量
+varname=value             # 定义变量                            两边不可以有空格
+local varname=value       # 定义只能在函数里使用的本地变量
+name="only_read" -> readonly name # 只读变量
+unset name                # 删除变量
 varname=value command     # 定义子进程变量并执行子进程
 echo $varname             # 查看变量内容
 echo $$                   # 查看当前 shell 的进程号
 echo $!                   # 查看最近调用的后台任务进程号
-echo $?                   # 查看最近一条命令的返回码
+echo $?                   # 查看最近一条命令的返回码              重要
 export VARNAME=value      # 设置环境变量（将会影响到子进程）
 
 array[0]=valA             # 定义数组
@@ -275,8 +280,6 @@ ${variable%%pattern}      # 如果变量尾部匹配 pattern，则删除最大�
 ${variable/pattern/str}   # 将变量中第一个匹配 pattern 的替换成 str，并返回
 ${variable//pattern/str}  # 将变量中所有匹配 pattern 的地方替换成 str 并返回
 
-${#varname}               # 返回字符串长度
-
 *(patternlist)            # 零次或者多次匹配
 +(patternlist)            # 一次或者多次匹配
 ?(patternlist)            # 零次或者一次匹配
@@ -300,14 +303,34 @@ $(UNIX command)           # 运行命令，并将标准输出内容捕获并返�
 varname=$(id -u user)     # 将用户名为 user 的 uid 赋值给 varname 变量
 
 num=$(expr 1 + 2)         # 兼容 posix sh 的计算，使用 expr 命令计算结果
+num=`expr 1 + 2`          # 同上
 num=$(expr $num + 1)      # 数字自增
 expr 2 \* \( 2 + 3 \)     # 兼容 posix sh 的复杂计算，输出 10
 
 num=$((1 + 2))            # 计算 1+2 赋值给 num，使用 bash 独有的 $((..)) 计算
 num=$(($num + 1))         # 变量递增
 num=$((num + 1))          # 变量递增，双括号内的 $ 可以省略
+num=$[num+1]              # 另一种方式
 num=$((1 + (2 + 3) * 2))  # 复杂计算
+```
 
+### 字符串
+```
+单引号变量var='test' ，只能原样输出，变量无效
+单引号中不能出现一个单独的单引号，转义也不可以
+
+双引号变量var="my name is ${name}"，变量有效
+可出现转义符
+
+拼接字符串
+中间无任何+，之类的字符
+name="this is"" my name"; name="this is my name"; name="this" is "my name" 等效
+name='this is'' my nam'; name='this is my name'; name='this' is 'my name' 等效
+
+${#varname}               # 返回字符串长度
+# 切片
+1:4 从第2个开始 往后截取4个字符
+::4 从第一个字符开始 往后截取4个字符
 ```
 
 ### 事件指示符
@@ -348,6 +371,26 @@ declare -f                # 列出函数定义
 
 ```
 
+### 输出
+格式：printf format-string [arguments...] 其中（format-string: 格式控制字符串、arguments: 参数列表）
+案例：printf "%-10s %-8s %-4.2f\n" 郭靖 男 66.1234
+```
+d：Decimal 十进制整数 对应位置参数必须是十进制整数，否则报错!
+s：String 字符串 对应位置参数必须是字符串或者字符型 否则报错
+c：Char 字符 对应位置参数必须是字符串或者字符型 否则报错
+f：Float 浮点 对应位置参数必须是数字型 否则报错
+
+%-10s ： 指一个宽度为10个字符（-表示左对齐，没有则表示右对齐），任何字符都会被显示在10个字符宽的字符内，如果不足则自动以空格填充，超过也会将内容全部显示出来。
+
+%-4.2f ：指格式化为小数，宽度为4个字符，其中.2指保留2位小数。
+
+```
+
+### 长句换行
+在shell中为避免一个语句过长，可以使用“\\”进行换行  
+使用“\\”换行，在脚本执行过程中还是当做一行一个语句执行，不同于enter直接换行
+>注意：\ 前添加一个空格 。 \ 后无空格直接换行。  
+
 ### 条件判断（兼容 posix sh 的条件判断）：man test
 
 ```bash
@@ -365,6 +408,7 @@ str1 < str2               # 字符串小于，如 [ "$x" \< "$y" ] && echo yes
 str2 > str2               # 字符串大于，注意 < 或 > 是字面量，输入时要加反斜杆
 -n str1                   # 判断字符串不为空（长度大于零）
 -z str1                   # 判断字符串为空（长度等于零）
+$  str1                   # 检测字符串是否为空
 
 -a file                   # 判断文件存在，如 [ -a /tmp/abc ] && echo "exists"
 -d file                   # 判断文件存在，且该文件是一个目录
@@ -388,6 +432,22 @@ num1 -gt num2             # 数字判断：num1 > num2
 num1 -ge num2             # 数字判断：num1 >= num2
 ```
 
+### 逻辑判断
+```
+[ ] ： 中括号旁边和运算符两边必须添加空格 （可以使用，不推荐）
+[[ ]]：中括号旁边和运算符两边必须添加空格 （字符串验证时，推荐使用）
+(()) ： 中括号旁边和运算符两边必须添加空格 （数字验证时，推荐使用）
+[[]] 和 (()) 分别是[ ]的针对数学比较表达式和字符串表达式的加强版。
+
+使用[[ ... ]]条件判断结构，而不是[ ... ]，能够防止脚本中的许多逻辑错误。比如，&&、||、<和> 操作符能够正常存在于[[ ]]条件判断结构中，但是如果出现在[ ]结构中的话，会报错。
+
+比如可以直接使用if [[ $a != 1 && $a != 2 ]], 如果不适用双括号, 则为if [ $a -ne 1] && [ $a != 2 ]或者if [ $a -ne 1 -a $a != 2 ]。
+[[ ]]中增加模式匹配特效；
+(( ))不需要再将表达式里面的大小于符号转义，除了可以使用标准的数学运算符外，还增加了以下符号:
+自增符号 ++ --
+!   ~    ** (幂运算)  <<   >>   &  |   &&  || 
+```
+
 ### 分支控制：if 和经典 test，兼容 posix sh 的条件判断语句
 ```bash
 test {expression}         # 判断条件为真的话 test 程序返回0 否则非零
@@ -406,7 +466,7 @@ test cond && cmd1         # 判断条件为真时执行 cmd1
 ```
 
 ##### 判断 /etc/passwd 文件是否存在
-##### 经典的 if 语句就是判断后面的命令返回值为0的话，认为条件为真，否则为假
+1. 经典的 if 语句就是判断后面的命令返回值为0的话，认为条件为真，否则为假
 ```bash
 if test -e /etc/passwd; then
     echo "alright it exists ... "
@@ -415,9 +475,8 @@ else
 fi
 ```
 
-
-##### 和上面完全等价，[ 是个和 test 一样的可执行程序，但最后一个参数必须为 ]
-##### 这个名字为 "[" 的可执行程序一般就在 /bin 或 /usr/bin 下面，比 test 优雅些
+2. 和上面完全等价，[ 是个和 test 一样的可执行程序，但最后一个参数必须为 ]
+这个名字为 `"["` 的可执行程序一般就在 /bin 或 /usr/bin 下面，比 test 优雅些
 ```
 if [ -e /etc/passwd ]; then   
     echo "alright it exists ... "
@@ -426,8 +485,7 @@ else
 fi
 ```
 
-
-##### 和上面两个完全等价，其实到 bash 时代 [ 已经是内部命令了，用 enable 可以看到
+和上面两个完全等价，其实到 bash 时代 `[` 已经是内部命令了，用 enable 可以看到
 ```
 [ -e /etc/passwd ] && echo "alright it exists" || echo "it doesn't exist"
 ```
@@ -443,14 +501,15 @@ else
 fi
 ```
 
-##### 复杂条件判断，注意 || 和 && 是完全兼容 POSIX 的推荐写法
+##### 复杂条件判断
+注意 || 和 && 是完全兼容 POSIX 的推荐写法
 ```
 if [ $x -gt 10 ] && [ $x -lt 20 ]; then
     echo "yes, between 10 and 20"
 fi
 ```
 
-##### 可以用 && 命令连接符来做和上面完全等价的事情
+可以用 && 命令连接符来做和上面完全等价的事情
 ```
 [ $x -gt 10 ] && [ $x -lt 20 ] && echo "yes, between 10 and 20"
 ```
@@ -462,7 +521,7 @@ if [ \( $x -gt 10 \) -a \( $x -lt 20 \) ]; then
 fi
 ```
 
-##### 同样可以用 && 命令连接符来做和上面完全等价的事情
+同样可以用 && 命令连接符来做和上面完全等价的事情
 ```
 [ \( $x -gt 10 \) -a \( $x -lt 20 \) ] && echo "yes, between 10 and 20"
 ```
@@ -554,6 +613,17 @@ help {builtin_command}             # 查看内置命令的帮助（仅限 bash �
 eval $script                       # 对 script 变量中的字符串求值（执行）
 ```
 
+### 命令替换
+命令替换与变量替换差不多，都是用来重组命令行的，**先完成引号里的命令行，然后将其结果替换出来**，再重组成新的命令行。
+```bash
+`ls /etc` ： 反引号 （所有的unix系统都支持）
+$(ls /etc) ： $+() （部分unix系统不支持）
+
+多个嵌套使用时，从内向外执行
+
+for file in \s /etc\ 或 for file in $(ls /etc) 循环中使用`dirname \$0` 获取脚本文件所在的目录path=$(cd `dirname $0`;pwd) ： 获取脚本当前所在目录，并且执行cd命令到达该目录，使用pwd获取路径并赋值到path变量
+```
+
 ### 输出/输入 重定向
 ```
 cmd1 | cmd2                        # 管道，cmd1 的标准输出接到 cmd2 的标准输入
@@ -570,13 +640,28 @@ n>&                                # 将标准输出 dup/合并 到文件描述�
 n<&                                # 将标准输入 dump/合并 定向为描述符 n
 n>&m                               # 文件描述符 n 被作为描述符 m 的副本，输出用
 n<&m                               # 文件描述符 n 被作为描述符 m 的副本，输入用
+
 &>file                             # 将标准输出和标准错误重定向到文件
+>file 2>&1                         # 同上，将标准输出和标准错误重定向到文件
+> /dev/null  2>&1                  # 屏蔽stdout 和 stderr
+
 <&-                                # 关闭标准输入
 >&-                                # 关闭标准输出
 n>&-                               # 关闭作为输出的文件描述符 n
 n<&-                               # 关闭作为输入的文件描述符 n
 diff <(cmd1) <(cmd2)               # 比较两个命令的输出
 ```
+
+### shell脚本调试
+检查是否有语法错误-n：  
+bash -n script_name.sh  
+使用下面的命令来执行并调试 Shell 脚本-x：  
+bash -x script_name.sh
+
+1.  首先检查有无语法错误：  
+    bash -n count_odd_number.sh
+2.  没有输出，说明没有错误，开始实际调试：  
+    bash -x count_odd_number.sh
 
 ### 文本处理 - cut
 ```
@@ -878,7 +963,7 @@ function ccat() {
 
 #### 放到你的 ~/.bashrc 配置文件中，给 man 增加漂亮的色彩高亮
 ```
-export LESS_TERMCAP_mb=$'\E[1m\E[32m'
+export LESS_TERMCAP_mb=$'\E[1m\E[32m 
 export LESS_TERMCAP_mh=$'\E[2m'
 export LESS_TERMCAP_mr=$'\E[7m'
 export LESS_TERMCAP_md=$'\E[1m\E[36m'
@@ -891,6 +976,25 @@ export LESS_TERMCAP_ZN=""
 export LESS_TERMCAP_se=$'\E[27m\E(B\E[m'
 export LESS_TERMCAP_ZV=""
 export LESS_TERMCAP_so=$'\E[1m\E[33m\E[44m'
+
+echo 命令如何输出带有颜色的文本  类似于上面
+echo 由于转义序列，它们可以显示颜色和格式化的文本。 这些序列由转义字符 （通常由`^[`或`<Esc>`表示）后接其他一些字符：`FormatCode`组成。`<Esc>[FormatCodem`
+
+在 Bash, <Esc> 字符可以使用以下语法获取字符:
+\e   或者 \033  或者  \x1B
+
+echo -e “ \ e [31mHello World \ e [0m” 输出带有颜色的文本
+-e 选项echo启用对转义序列的解析。
+
+\e[0m序列删除所有属性（格式和颜色）。在每个彩色文本的末尾都最好添加它
+
+\e 转义起始符，定义一个转义序列， 可以使用 \033或者\x1B代替
+
+[ 表示开始定义颜色
+
+m 转义终止符，表示颜色定义完毕
+
+再次使用 \e[ ，表示再次开启颜色定义，0表示使用默认的颜色，m表示颜色定义结束，所以 \e[0m 的作用是恢复之前的配色方案
 ```
 
 #### ALT+hjkl/HJKL 快速移动光标，将下面内容添加到 ~/.inputrc 中可作用所有工具，

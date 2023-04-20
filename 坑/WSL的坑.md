@@ -40,5 +40,17 @@ wsl --list
 wsl --terminate Ubuntu-18.04
 ```
 
+上面关闭了自动挂载，**那么没有自动挂载之后如何手动挂载呢？**
+```
+mkdir /mnt/g
+
+# 使用drvfs格式将U盘或移动硬盘插入电脑后的盘符G，进行挂载
+mount -t drvfs G: /mnt/g
+
+# 需在Windows下正常弹出U盘或移动硬盘，需要先卸载/mnt/g
+umount /mnt/g
+```
+
 #### 配置wsl官方参考文档
 [Automatically Configuring WSL - Windows Command Line](https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/)
+
