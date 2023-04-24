@@ -54,3 +54,6 @@ umount /mnt/g
 #### 配置wsl官方参考文档
 [Automatically Configuring WSL - Windows Command Line](https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/)
 
+如何限制WSL使用的内存和CPU
+使用VNC服务器在WSL上使用GUI 应用程序
+[改善 WSL 体验的 5 件事 - Windows教程网](https://rishivoice.com/post/45874.html)
