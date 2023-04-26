@@ -9,7 +9,7 @@
  C:\Users\guoya\AppData\Local\Android\Sdk\ndk\25.1.8937393\toolchains\llvm\prebuilt\windows-x86_64\bin\aarch64-linux-android29-clang hello.c -o hello
 ```
 
-#### 调试
+#### 运行
 于是你可以在命令行下直接开发 Android 的非 GUI 应用程序了。
 
 调试也很简单，用 adb push 上传到 /data/local/tmp 下面，并且设置可执行模式为 755：
@@ -24,6 +24,29 @@ adb shell /data/local/tmp/hello
 ```
 
 不可以传到其他目录， 比如/sdcard，这些目录mount时有NOEXEC权限，不能给文件增加可执行权限，而 /data/local/tmp 就是留给大家调试命令行用的，并且不需要 root 权限。
+
+#### 调试
+如果之前用过Android Studio在手机上调试过native 程序，就可以看到手机的/data/local/tmp目录下有lldb-server程序，可以直接使用，否则去ndk工具链里找lldb-server，push到手机的/data/local/tmp目录下(第一次的话记得修改执行权限)
+
+调试第一步： 手机启动lldb-server
+```bash
+./lldb-server p --server --listen unix-abstract:///data/local/tmp/debug.sock
+```
+
+调试第二步：在电脑上用lldb连接lldb-server(直接用ndk里的lldb.exe不知道为什么不能用，我用的是自己电脑上的llvm里的lldb)
+```bash
+lldb  # 先运行这个进入lldb命令行
+platform list # 查看lldb可以连接的平台，如果知道自己要连接什么平台可以不运行
+platformt select remote-android # 必须运行这个，否则找不到手机的lldb-server
+platform status # 查看平台状态 可运行可不运行
+platform connect unix-abstract-connect:///data/local/tmp/debug.sock
+
+运行最后一条命令后，可以看到有连接的输出  connect: yes
+```
+
+调试第三步： `file regex` 加载电脑上编译好的程序，这样就可以正常调试了。
+
+也可以attach命令调试正在运行的程序。
 
 
 👉TODO 如何使用cmake交叉编译android工程，然后再push到手机上执行。先用libcurlTest工程进行测试。
