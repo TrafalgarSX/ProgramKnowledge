@@ -10,7 +10,7 @@ libcurl提供了一组C语言API函数直接调用。首先需要提到的两个
 
 **libcurl支持3种不同的接口调用方式，分别是"easy"、"multi"和"share"模式。**
 
-easy是一组同步接口，函数都是`curl_easy_*`形式，这种模式调用curl_easy_perform()函数进行URL进行数据传输，知道传输完成函数才返回；
+easy是一组同步接口，函数都是`curl_easy_*`形式，这种模式调用curl_easy_perform()函数进行URL进行数据传输，直到传输完成函数才返回；
 
 multi是一组异步接口，函数都是`curl_multi_*`形式，调用curl_multi_perform()函数进行传输，但是每次调用只传输一片数据，**我们可以用select函数控制多个下载任务进行同步下载，来实现在一个线程中同时下载多个文件；**
 
