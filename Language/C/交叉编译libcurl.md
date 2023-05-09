@@ -93,10 +93,7 @@ tail -n 30 /tmp/out
 # export CXX=/root/Android/android-ndk-r25b/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang++
 ```
 
-TODO 
 AS AR RANLIB  STRIP 分别是什么？
 为什么  交叉编译需要这几个环境变量
 
-cmake也有相同的： CMAKE_AS等
-
-TODO 了解如何用cmake进行交叉编译？
+- [x] 了解如何用cmake进行交叉编译？ ✅ 2023-05-07
