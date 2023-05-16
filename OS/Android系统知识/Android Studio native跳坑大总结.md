@@ -22,6 +22,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_PATH}/bin") #
 Edit Configuration 中的  Deubgger项没有设置成  java and native
 
 #### 疑难原因，坑我一天了快
+错误提示：
+```
+Attention!No symbol directories found please check your native debug configuration
+```
+💡如果出现了疑难问题，应该注意IDE给出的每一个提示，因为看到了这个提示，我才想出解决方法。
+
 依赖 动态库的app模块没有使用正确的编译生成后的动态库， 在上面设置好动态库的输出目录后， 在app模块的 build.gradle中添加以下代码，即可正常Debug动态库。
 ```
     sourceSets {
