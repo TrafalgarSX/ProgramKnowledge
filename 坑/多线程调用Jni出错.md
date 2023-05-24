@@ -41,14 +41,17 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
 
 void doSomething() {
     JNIEnv* env;
+	// cpp 可以这样调用
     jint res = jvm->AttachCurrentThread((void**)&env, NULL);
+	// c中应该这样调用， 否则会有提示JNIInvokeInterface is not a structure or union
+	jint res = (*jvm)->AttachCurrentThread(jvm, (void**)&env, NULL);
+
     if (res != JNI_OK) {
         // 处理AttachCurrentThread失败的情况
         return;
     }
 
     // 在这里使用JNIEnv对象执行JNI操作
-
     jvm->DetachCurrentThread();
 }
 ```
