@@ -29,13 +29,11 @@ valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./testLeak
 int main()
 
 {
-
     auto ptr = new std::string("Hello, World!");
 
     delete ptr;
 
     return 0;
-
 }
 ```
 
