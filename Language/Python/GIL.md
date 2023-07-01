@@ -1,5 +1,8 @@
 ### What is the Python Global Interpreter Lock?
 ---
+注意： TODO 读这篇文章
+[Real Multithreading is Coming to Python - Learn How You Can Use It Now | Martin Heinz | Personal Website & Blog](https://martinheinz.dev/blog/97)
+
 The Python Global Interpreter Lock or [GIL](https://wiki.python.org/moin/GlobalInterpreterLock), in simple words, is a mutex (or a lock) that allows only one [thread](https://realpython.com/intro-to-python-threading/) to hold the control of the Python interpreter.
 
 This means that only one thread can be in a state of execution at any point in time. The impact of the GIL isn’t visible to developers who execute single-threaded programs, but **it can be a performance bottleneck in CPU-bound and multi-threaded code.**
