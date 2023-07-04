@@ -2,6 +2,8 @@
 ---
 想在程序中使用sanitize去检测内存泄漏，工程使用的是CMake管理的，怎样在CMake中开启sanitize呢？
 
+💡如果想在一个工程中启用sanitize, 只需要最后编译的可执行程序开启sanitize即可。也就是如果一个可执行程序依赖多个静态库或者动态库，不需要每个静态库或者动态库编译时都开启sanitize，只需要最后链接的可执行程序开启sanitize就可以了。
+
 在命令行中通过编译器开启sanitize是这样的：
 ```bash
 clang++ -fsanitize-address -fno-omit-frame-pointer -g test.cpp -o test
