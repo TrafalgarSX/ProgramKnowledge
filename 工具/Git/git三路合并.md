@@ -101,7 +101,11 @@ Three-way merge的好处是程序能理解你到底做了哪些改动，如果�
 
 这就导致merge的时候只能看到 两个版本间的diff, 我们只能选择当前更改或者传入的更改，这可能会导致问题， 因为可能两个版本间的diff中间**可能有冲突我们必须要选择其一的部分， 也有新增的功能必须要在最后的 result 中的代码**， 如果我们只选择其中一个，虽然解决了冲突的部分，但是我们有可能把新增的想要的新功能也给解决掉了，这样就会丢失新的代码。
 
+👉update:
 现在新版本的vscode已经是 4-editor view  which also shows the base editor 了。
 
 vscode 上的issue 有和我一样的疑惑 [Please show base by default in the 3-way-merge editor · Issue #165628 · microsoft/vscode · GitHub](https://github.com/microsoft/vscode/issues/165628) 
+
+👉update: 下面这个issue里hediet解释了为什么 IntelliJ 的三路合并为什么也没有 base view
+[Merge Editor: Provide a 4-editor view which also shows the base editor · Issue #155277 · microsoft/vscode · GitHub](https://github.com/microsoft/vscode/issues/155277)
 
