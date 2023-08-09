@@ -44,3 +44,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 ```bash
 cmake .. -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 ```
+
+
+### visual studio 中并不需要这个参数
