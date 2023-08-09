@@ -46,7 +46,67 @@
 ```
 - `.git/index`文件，这就是著名的**索引（或暂存区）**， 它基本上就是一个位于`.git/index`的文件。
 
+### Git for Computer Scientists
+---
+![[图#DAG图]]
+#### Storage
+##### blob
+In simplified form, **git object storage is "just" a DAG of objects**, with a handful of different types of objects. They are all stored compressed and identified by an SHA-1 hash (that, incidentally, _isn't_ the SHA-1 of the contents of the file they represent, but of their representation in git).
+
+![[blob.png]]
+
+`blob`: The simplest object, **just a bunch of bytes**. This is often a file, but can be a symlink or pretty much anything else. The object that points to the `blob` determines the semantics.
+
+##### tree
+
+![[tree.png]]
+
+`tree`: Directories are represented by `tree` object. **They refer to `blob`s** that have the contents of files (filename, access mode, etc is all stored in the `tree`), and to **other `tree`s for subdirectories**.
+
+When a node points to another node in the DAG, it _depends_ on the other node: it cannot exist without it. **Nodes that nothing points to can be garbage collected with `git gc`**, or rescued much like filesystem inodes with no filenames pointing to them with `git fsck --lost-found`.
+
+##### commit
+![[commit.png]]
+
+`commit`: **A `commit` refers to a `tree` that represents the state of the files at the time of the commit**. It **also refers to 0..`n` other `commit`s that are its parents**. 
+
+More than one parent means the commit is a merge, no parents means it is an initial commit, and interestingly there can be more than one initial commit; this usually means two separate projects merged. **The body of the `commit` object is the commit message.**
+
+##### HEAD and branch
+![[HEAD_COMMIT.png]]
+
+`refs`: **References, or heads or branches**, are like post-it notes slapped on a node in the DAG. Where as the DAG only gets added to and existing nodes cannot be mutated, **the post-its can be moved around freely**. They don't get stored in the history, and they aren't directly transferred between repositories. They act as sort of bookmarks, "I'm working here".
+
+- mutated 突变， 使变化
+- post-it 便利贴
+
+💡`git commit` adds a node to the DAG and moves the post-it note for current branch to this new node.
+
+The `HEAD` ref is special in that it actually points to another ref. It is a pointer to the currently active branch. 
+
+Normal refs are actually in a namespace `heads/XXX`, but you can often skip the `heads/` part.
+
+##### remote refs
+![[remote-refs.png]]
+
+`remote refs`: Remote references are post-it notes of a different color. The difference to normal `refs` is the different namespace, and **the fact that remote refs are essentially controlled by the remote server**. `git fetch` updates them.
+
+##### tag
+![[tag.png]]
+
+`tag`: **A `tag` is both a node in the DAG and a post-it note (of yet another color)**. 
+
+💡A `tag` points to a `commit`, and includes an optional message and a GPG signature.
+
+The post-it is just a fast way to access the tag, and if lost can be recovered from just the DAG with `git fsck --lost-found`.
+
+The nodes in the DAG can be moved from repository to repository, can be stored in more effective form (packs), and unused nodes can be garbage collected. 
+
+But in the end, a `git` repository is always just a DAG and post-its.
+
 
 ### 参考
 ---
-[Git 内部原理图解——对象、分支以及如何从零开始建仓库](https://www.freecodecamp.org/chinese/news/git-internals-objects-branches-create-repo/)
+- [Git 内部原理图解——对象、分支以及如何从零开始建仓库](https://www.freecodecamp.org/chinese/news/git-internals-objects-branches-create-repo/)
+
+- [Git for Computer Scientists](https://eagain.net/articles/git-for-computer-scientists/)

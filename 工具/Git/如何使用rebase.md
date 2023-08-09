@@ -87,6 +87,15 @@ warning: 不建议在没有为偏离分支指定合并策略时执行 pull 操�
 - 标签名称
 - `HEAD~1` 这样的相对引用。
 
+### rebase 更好的场景与理由
+---
+For most operations, a rebase is preferred to a merge:
+
+- It remembers each of your commits.
+    
+- Your commits will always show up as the last in the list (“the cream rises to the top”)
+    
+- Note that the old commits (C6..C8) are no longer referenced by any refs, so they are now available for “garbage collection”.
 ### rebase 的缺点
 ---
 我们上面已经提到了 rebase 有保持整洁的线性提交历史的优点，但也需要意识到它有以下潜在的弊端：
