@@ -1,5 +1,5 @@
 - [ ] what is thread model?
-- [ ] websockt demo
+- [x] websockt demo ✅ 2023-08-03
 - [ ] 局域网文件传输程序   QT Android
 - [ ] 视频，音频编解码 demo   通过开源库了解
 - [ ] 二维码原理和二维码模块（生成并展示二维码）
@@ -8,17 +8,21 @@
 - [ ] 到底他妈的什么是函数式编程 conbinator推导  递归 《SICP》
 - [ ] GitLab  jenkins 买一台服务器，自己搭建一下gitlab
 - [ ] CI/CD 在gitlab上使用 CI/CD
+- [x] 真正测试一下三路合并， b1 修改 a 为 //a, 添加 b c ; b2 修改 a 为 aa, 添加 d e, 合并 aa b c, 完成这个流程， 体验一下p4merge的三路合并(和共同祖先版本比较) ✅ 2023-08-02
+
+❓现在有一可执行程序A， 依赖静态库B， 静态库B依赖libcurl, 现在有静态库libcurl.lib, 有带CURL_STATICLIB宏编译的静态库B。可执行程序A链接了静态库B和libcurl.lib, 并在可执行程序中调用了 libcurl.lib的接口， 但是编译可执行程序A的时候，并没有带CURL_STATICLIB宏， 请问为什么可以编译通过? 这个时候编译不应该报错，说找不到 `__imp_curl**`相关的符号吗？
+不知道为什么这种情况下可以编译， 以后遇到相同的问题再说。
 
 “摆烂从来没有让我快乐过，我只是爽。”
 - [ ] 测试linux下的 sanitizer, 文档说，编译动态库的时候不会将 sanitizer 的运行时库引入，我需要编译一个动态库，然后使用java load这个动态库测试一下， 然后， 编译一个引用这个动态库的可执行程序， 看是否可以找到对应的符号。 静态库也试一下
-- [ ] 结构体初始化
+- [x] 结构体初始化 ✅ 2023-08-03
+- [ ] extern C 对c++函数重载， c中没有的类型(STL数据结构)， 类成员函数这些有什么影响？
 - [ ] IEEE 754 浮点数
 - [ ] Unix Network Programming, Volume 1: The Sockets Networking API
 - [ ] 《Boost.Asio C++网络编程》
 - [ ] 《C++并发编程实战》
 - [ ] A tour of C++   c++作者的书  第三版
 - [ ] Modern C++ for Absolute Beginners
-- [ ] extern C 对c++函数重载， c中没有的类型(STL数据结构)， 类成员函数这些有什么影响？
 - [ ] 什么是协程
 - [ ] Google C++ style guide
 - [ ] c/c++ 内存模型  堆区  栈区  代码区 数据区 这些搞清楚
