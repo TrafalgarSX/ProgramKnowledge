@@ -16,7 +16,7 @@
 “摆烂从来没有让我快乐过，我只是爽。”
 - [ ] 测试linux下的 sanitizer, 文档说，编译动态库的时候不会将 sanitizer 的运行时库引入，我需要编译一个动态库，然后使用java load这个动态库测试一下， 然后， 编译一个引用这个动态库的可执行程序， 看是否可以找到对应的符号。 静态库也试一下
 - [x] 结构体初始化 ✅ 2023-08-03
-- [ ] extern C 对c++函数重载， c中没有的类型(STL数据结构)， 类成员函数这些有什么影响？
+- [x] extern C 对c++函数重载， c中没有的类型(STL数据结构)， 类成员函数这些有什么影响？ ✅ 2023-08-25
 - [ ] IEEE 754 浮点数
 - [ ] Unix Network Programming, Volume 1: The Sockets Networking API
 - [ ] 《Boost.Asio C++网络编程》

@@ -16,6 +16,12 @@ Promise 对象通过**链式调用的方式来处理异步操作的结果**。
 
 Promise 对象的优点是可以解决回调地狱（callback hell）的问题，使异步操作的代码更加清晰和易于理解。它提供了一种更优雅的方式来处理异步操作，并可以通过链式调用来串联多个异步操作。
 
+### async await
+---
+- `async`：用于声明一个函数是异步函数，**返回一个 Promise 对象**。异步函数内部可以包含 `await` 表达式。
+
+- `await`：只能在异步函数内部使用，**用于暂停函数的执行，等待一个 Promise 对象的解析结果**。当 `await` 后面的 Promise 对象成功解析时，**会返回解析结果**，然后函数继续执行。
+
 一个 `async` 函数会返回一个 Promise 对象。
 
 当你在定义一个 `async` 函数时，它会自动封装成一个 Promise 对象。这意味着当你调用该函数时，它会返回一个 Promise 对象，而不是直接返回函数的结果。
@@ -37,3 +43,38 @@ console.log(promise); // Promise {<fulfilled>: 'Data fetched successfully'}
 ```
 
 在上面的示例中，`fetchData` 函数返回一个字符串，并自动被封装成一个 Promise 对象。你可以通过 `then()` 方法链式调用来处理该 Promise 对象的结果。
+
+### 如何解析 Promise 对象
+---
+1. 使用 `await`：在异步函数内部，可以使用 `await` 关键字等待 `Promise` 对象的解析结果，并将解析的值返回。
+
+2. 使用 `.then()`：可以使用 `Promise` 对象的 `.then()` 方法来注册解析成功时的回调函数，并获取解析的值。
+```javascript
+javascript
+async function getData() {
+  const result = await someAsyncOperation();
+  return result;
+}
+
+getData().then(value => {
+  console.log(value);
+});
+```
+
+3. 使用 `Promise.all()`：如果我们有**多个异步操作**，并且希望同时等待它们全部完成，我们可以使用 `Promise.all()` 方法。这个方法接受一个包含多个 Promise 对象的数组，并返回一个新的 Promise 对象。这个新的 Promise 对象在所有的 Promise 对象都解析成功时才会解析成功，并返回一个包含所有解析值的数组。
+```javascript
+javascript
+async function fetchData() {
+  const promise1 = fetch('https://api.example.com/data1');
+  const promise2 = fetch('https://api.example.com/data2');
+  const promise3 = fetch('https://api.example.com/data3');
+
+  const results = await Promise.all([promise1, promise2, promise3]);
+
+  return results;
+}
+
+fetchData().then(data => {
+  console.log(data); // 包含所有解析值的数组
+});
+```
