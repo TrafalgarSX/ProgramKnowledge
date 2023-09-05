@@ -32,6 +32,8 @@ enabled = false
 ```
 保存退出后关闭WSL,再重新运行WSL 
 
+💡一般不加载Windows中的PATH内容, **如果加载了， wsl 下命令运行会非常慢。需要什么自己单独加载。
+
 如果没有起效，从windows命令行终止linux子系统，重新打开后即可：
 ```
 wsl --list
@@ -40,7 +42,7 @@ wsl --list
 wsl --terminate Ubuntu-18.04
 ```
 
-上面关闭了自动挂载，**那么没有自动挂载之后如何手动挂载呢？**
+#### 上面关闭了自动挂载，**那么没有自动挂载之后如何手动挂载呢？**
 ```
 mkdir /mnt/g
 
@@ -50,6 +52,15 @@ mount -t drvfs G: /mnt/g
 # 需在Windows下正常弹出U盘或移动硬盘，需要先卸载/mnt/g
 umount /mnt/g
 ```
+
+#### 不加载 windows 的PATH内容， vscode 的 wsl 无法使用
+单独添加 vscode 的 环境变量即可。
+```bash
+export PATH=$PATH:/mnt/c/Code/bin
+```
+
+注意不是 `/mnt/c/Code/` , 虽然 该路径下有 code.exe, 但是他在 wsl 是无法开起 code 的 wsl, `/mnt/c/Code/bin` 下的 code 才可以。
+
 
 #### 配置wsl官方参考文档
 [Automatically Configuring WSL - Windows Command Line](https://devblogs.microsoft.com/commandline/automatically-configuring-wsl/)
