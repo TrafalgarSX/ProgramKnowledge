@@ -31,6 +31,7 @@ param{
   [string]$abi = "arm64-v8a",
   [string]$stl = "c++_static",
   [string]$build_dir = "build_android",
+  [string]$build_type = "Release",
 }
 
 # 简化命令行参数
@@ -68,6 +69,7 @@ cmake -S .. -B "$build_dir" -DCMAKE_TOOLCHAIN_FILE="$android_toolchain_file" `
   -DANDROID_NATIVE_API_LEVEL="$api_level" `
   -DANDROID_ABI="$abi" `
   -DANDROID_STL="$stl" `
+  -DCMAKE_BUILD_TYPE="$build_type" `
   -G "Ninja" 
 
 
@@ -80,6 +82,7 @@ cmake -S .. -B "$build_dir" -DCMAKE_TOOLCHAIN_FILE="$android_toolchain_file" `
 #
 ```
 
+`./compile.ps1 -abi armeabi-v7a -api_level 21`
 #### Android中使用CMake教程
 工具链参数：
 以下参数可以传递给 CMake 工具链文件。如果使用 Gradle 进行构建，请按照 [ExternalNativeBuild 文档](https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/ExternalNativeBuildOptions?hl=zh-cn)中所述向 `android.defaultConfig.externalNativeBuild.cmake.arguments` 添加参数。如果通过命令行进行构建，请使用 `-D` 将参数传递给 CMake。例如，要强制 armeabi-v7a 始终使用 Neon 支持进行构建，请传递 `-DANDROID_ARM_NEON=TRUE`。
