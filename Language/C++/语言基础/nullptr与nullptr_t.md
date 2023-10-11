@@ -3,7 +3,7 @@
 nullptr nullptr_t 在 C++ 11 引入
 （一）**nullptr_t是一种数据类型，而nullptr是该类型的一个实例**。通常情况下，也可以通过nullptr_t类型创建另一个新的实例。
 
-（二）所有定义为nullptr_t类型的数据都是等价的，行为也是完全一致的。
+（二）所有定义为nullptr_t类型的数据都是等价的，行为也是完全一致的(实际上之间可以用 > < >= <= == 等比较符号)。
 
 （三）**std::nullptr_t类型，并不是指针类型**，但**可以隐式转换成任意一个指针类型**（注意不能转换为非指针类型，强转也不行）。
 
@@ -21,6 +21,12 @@ nullptr nullptr_t 在 C++ 11 引入
 #  define NULL ((void*)0)  // NULL 在 C 里 是指针
 #endif
 ```
+
+1. nullptr可以隐式转换为任何指针！
+2. 使用关系运算符进行比较nullptr与nullptr_t类型的变量
+  1. nullptr支持关系运算
+  2. nullptr不支持算术运算
+  3. nullptr是个常量
 
 ```cpp
 #include <iostream>
@@ -96,7 +102,7 @@ newptr !< nullptr
 
 　　3. 在**模板推导**中，**nullptr被推导为nullptr_t类型**，仍可隐式转为指针。**但0或NULL则会被推导为整型类型**。 (函数重载下会出现问题， 不知道要调用哪一个)
 ```cpp
-  void function(int a) { std::cout << "int" << std::endl; }
+void function(int a) { std::cout << "int" << std::endl; }
 
 void function(const char *name) { std::cout << "const char *" << std::endl; }
 
@@ -106,7 +112,50 @@ int main() {
 }
 ```
 
-　　4.**要避免在整型和指针间进行函数重载**。因为NULL会被匹配到整型形参版本的函数，而不是预期的指针版本。
+　　4. **要避免在整型和指针间进行函数重载**。因为NULL会被匹配到整型形参版本的函数，而不是预期的指针版本。
+
+#### 要避免在整型和指针间进行函数重载
+
+```cpp
+// C++ program to demonstrate problem with NULL
+#include <bits/stdc++.h>
+using namespace std;
+
+// function with integer argument
+void fun(int N) { cout << "fun(int)"; return;}
+
+// Overloaded function with char pointer argument
+void fun(char* s) { cout << "fun(char *)"; return;}
+
+int main()
+{
+	// Ideally, it should have called fun(char *),
+	// but it causes compiler error.
+	fun(NULL);
+}
+```
+output:
+```txt
+16:13: error: call of overloaded 'fun(NULL)' is ambiguous
+     fun(NULL);
+```
+
+NULL is typically defined as `(void *)0` and conversion of NULL to integral types is allowed. So the function call fun(NULL) becomes ambiguous.
+
+这样在调用fun(NULL) 的时候就不知道调用谁了， 因为 NULL 本身就是0强转， 但又属于指针类型。
+
+nullptr可以解决这个问题。
+
+nullptr is a keyword that can be used at all places where NULL is expected. 
+NULL出现的地方nullptr都可以替代。
+
+Like NULL, nullptr is implicitly convertible and comparable to any pointer type. **Unlike NULL, it is not implicitly convertible or comparable to integral types**.
+
+nullptr不会隐式转换成整型或者与整型进行比较。
+nullptr可以转换成bool， 所以可以   if(nullptr)
+
+
+
 
 （二）nullptr与(void*)0的区别
 
