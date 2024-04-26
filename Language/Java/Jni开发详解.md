@@ -157,6 +157,12 @@ if (newStr) {
 - **1、JNI_TRUE：** 使用**拷贝模式**，JVM 将**拷贝一份原始数据**来生成 UTF-8 字符串；
 - **2、JNI_FALSE：** 使用复用模式，JVM 将**复用同一份原始数据来**生成 UTF-8 字符串。**复用模式绝不能修改字符串内容**，否则 JVM 中的原始字符串也会被修改，打破 String 不可变性。
 
+⚠️💡
+```md
+The ReleaseString-Chars call is necessary whether GetStringChars has set *isCopy to JNI_TRUE or JNI_FALSE. ReleaseStringChars either frees the copy or unpins the instance, depending upon whether GetStringChars has returned a copy or not.
+
+```
+
 另外还有一个基于范围的转换函数：`GetStringUTFRegion`：预分配一块字符数组缓冲区，然后将 String 数据复制到这块缓冲区中。**由于这个函数本身不会做任何内存分配，所以不需要调用对应的释放资源函数**，也不会抛出 `OutOfMemoryError`。另外，GetStringUTFRegion 这个函数会做越界检查并抛出 `StringIndexOutOfBoundsException` 异常。
 
 ```cpp

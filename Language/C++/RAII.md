@@ -40,3 +40,52 @@ C++保证了所有栈对象在生命周期结束时会被销毁(即调用析构�
 
 由于RAII可以极大地简化资源管理，并有效地保证程序的正确和代码的简洁，所以通常会强烈建议在C++中使用它。
 
+### 同样原理的技巧但是不用智能指针，可同时释放多个资源，并且没有类型限制，scope guard
+
+将 类析构函数和 lamda 函数表达式 结合起来
+```cpp
+#include<functional>
+#include<iostream>
+class ScopeGuard
+{
+    std::function<void()> mFunc;
+
+public:
+    ScopeGuard(std::function<void()> f)
+    {
+        mFunc = f;
+    }
+    ~ScopeGuard()
+    {
+        mFunc();
+    }
+};
+
+int doSomething(int* p) {
+   return -1;
+}
+void finalize(int* p) {
+}
+void f() {
+   int* p = new int{3};
+   ScopeGuard s([&p]() {
+        if (p) {
+            delete[] p;
+        };
+        std::cout << "delete point\n";
+    });
+   int error = doSomething(p);
+   if (error) {
+       return;
+    }  
+   finalize(p);
+   std::cout<<"Function ends!\n";
+}
+int main()
+{
+    f();
+}
+```
+
+原文出处:
+[RAII:如何编写没有内存泄漏的代码 with C++ - 知乎](https://zhuanlan.zhihu.com/p/264855981)

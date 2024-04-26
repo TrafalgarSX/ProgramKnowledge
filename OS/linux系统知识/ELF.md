@@ -15,4 +15,7 @@ readelf是一个Linux命令行工具，用于查看ELF格式的可执行文件�
 因此，ldd和readelf是两个不同的工具，用于不同的目的。ldd用于查看可执行文件或共享库依赖的动态链接库，而readelf用于查看可执行文件或共享库的ELF格式的信息。
 
 ### 参考
+
+todo
+[xHook/docs/overview/android\_plt\_hook\_overview.zh-CN.md at master · iqiyi/xHook · GitHub](https://github.com/iqiyi/xHook/blob/master/docs/overview/android_plt_hook_overview.zh-CN.md)
 [System V Application Binary Interface - DRAFT](https://refspecs.linuxfoundation.org/elf/gabi4+/contents.html)

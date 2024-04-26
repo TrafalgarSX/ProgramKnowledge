@@ -26,4 +26,14 @@ __declspec(dllexport)是用于避免需要自己写 def 文件的。
 
 编译器会为被 declspec(dllexport)修饰的函数**自动添加一个导出函数入口。** 如果你在其他模块中包含 declspec(dllexport)的头文件，这些项目的导出表中也会生成一个同名导出函数。
 
+[使用 \_\_declspec(dllimport) 导入函数调用 | Microsoft Learn](https://learn.microsoft.com/zh-cn/cpp/build/importing-function-calls-using-declspec-dllimport?view=msvc-170)
+
+[使用 \_\_declspec(dllimport) 导入数据 | Microsoft Learn](https://learn.microsoft.com/zh-cn/cpp/build/importing-data-using-declspec-dllimport?view=msvc-170)
+
+[使用 DEF 文件导入 | Microsoft Learn](https://learn.microsoft.com/zh-cn/cpp/build/importing-using-def-files?view=msvc-170)
+
+[使用 DEF 文件从 DLL 导出 | Microsoft Learn](https://learn.microsoft.com/zh-cn/cpp/build/exporting-from-a-dll-using-def-files?view=msvc-170)
+
+[使用 \_\_declspec(dllexport) 从 DLL 导出 | Microsoft Learn](https://learn.microsoft.com/zh-cn/cpp/build/exporting-from-a-dll-using-declspec-dllexport?view=msvc-170)
+
   

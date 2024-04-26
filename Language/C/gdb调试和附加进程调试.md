@@ -40,6 +40,7 @@ gdb调试的三种方式
 gdb filename corename
 ```
 
+![[gdb如何调试core.dump]]
 
 
 visual studio可以当作gdb前端？看起来像是ssh远程连接到linux机器，然后通过ssh在本地编辑远程文件，远程linux的gdb调试  vs通过gdb-server查看
