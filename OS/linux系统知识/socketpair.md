@@ -1,0 +1,1 @@
+[输入系统：进程间双向通信(socketpair+binder) - sheldon\_blogs - 博客园](https://www.cnblogs.com/blogs-of-lxl/p/10542654.html)
