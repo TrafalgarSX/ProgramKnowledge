@@ -74,8 +74,7 @@ note:  标记的这段话说的不准确， cpp 中的 static 是单个编译单
 2.搞个统一的地方大家的单例共同注册到一起，用的时候拿出来。
 
 我之前写过一个全局的单例模式支持这种跨编译单元的单例，可以参考：
-
-[跳转中...](https://link.zhihu.com/?target=https%3A//github.com/KondeU/GlobalSingleton)
+[GitHub - KondeU/GlobalSingleton: 一个进程空间内全局单例的框架（注册到独立外置的一个dll中），支持热加载/热卸载动态链接库。](https://github.com/KondeU/GlobalSingleton)
 
 我采用的解决方式是第2种，大家共同把单例注册到一个独立的动态库singleton_manager中，使用时只需要继承GlobalSingleton<T>即可（需要注意我实现的这个单例的singleton_manager只记录了指针，如果有热卸载动态库的需求，那么不适用）。
 ```
